@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Astra DB Vector Search</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#askForm').submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "/ask",
+                    contentType: "application/json;charset=UTF-8",
+                    data: JSON.stringify({'question': $('#question').val()}),
+                    success: function(data) {
+                        $('#answer').text('Answer: ' + data.answer);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Chat with Astra DB Vector Search</h1>
+    <form id="askForm">
+        <label for="question">Your Question:</label>
+        <input type="text" name="question" id="question" required style="width: 400px;">
+        <input type="submit" value="Ask">
+    </form>
+    <h2 id="answer"></h2>
+</body>
+</html>
